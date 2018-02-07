@@ -19,13 +19,14 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;; Open new buffer with list of deviced (sd..) with `mount' command.
+;; Open new buffer with list of devices (sd..) with `mount' command.
 
 ;;
 
 ;;; Code:
 (defcustom mount-devices-mask "^sd[c-z][0-9]"
-  "Regexp to identify devices to mount."
+  ; I have all sda and sdb I want already mounted.
+  "Regexp to identify devices in the /dev/ directory to mount."
   :group 'mount
   :type 'regexp)
 
@@ -33,6 +34,9 @@
   "Default mount point"
   :group 'mount
   :type 'directory)
+
+(defvar mount-manual-mounts ()
+  "List of manually mounted directories")
 
 (defun mount-do-mount (button)
   (message "Mounting %s" (button-label button))
@@ -67,9 +71,6 @@
 		   'action 'mount-do-mount)
     (insert "\n"))
   (widen))
-
-(defvar mount-manual-mounts ()
-  "List of manually mounted directories")
 
 (defun mount-insert-manual-mounts ()
   (interactive)

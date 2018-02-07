@@ -2,6 +2,8 @@
 
 Usage: =M-x mount=
 
+Assumes =mount= and =umount= commands exist.
+
 In new buffer, =<RET>= to mount & umount, =g= to refresh, =o= to open directory.
 
 =M-x customize-group mount= for minimal customization.
