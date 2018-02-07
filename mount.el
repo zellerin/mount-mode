@@ -64,7 +64,7 @@
 
 (defun mount-insert-devices ()
   (interactive)
-  (mount-clear-section "Mountable devices: ")
+  (mount-clear-section "Mountable devices:")
   (dolist (dev (directory-files "/dev" t mount-devices-mask))
     (insert ?\^I)
     (insert-button dev
@@ -74,11 +74,7 @@
 
 (defun mount-insert-manual-mounts ()
   (interactive)
-  (goto-char 1)
-  (search-forward "Mounted:" nil t)
-  (narrow-to-page)
-  (delete-region (point-min) (point-max))
-  (insert "Mounted:\n")
+  (mount-clear-section "Mounted:")
   (dolist (dev mount-manual-mounts)
     (insert ?\^I)
     (insert-button (car dev)
