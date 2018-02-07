@@ -24,9 +24,19 @@
 ;;
 
 ;;; Code:
+(defcustom mount-devices-mask "^sd[c-z][0-9]"
+  "Regexp to identify devices to mount."
+  :group 'mount
+  :type 'regexp)
+
+(defcustom mount-default-mount "/mnt"
+  "Default mount point"
+  :group 'mount
+  :type 'directory)
+
 (defun mount-do-mount (button)
   (message "Mounting %s" (button-label button))
-  (let ((dir (read-directory-name "Mount at: " "/mnt")))
+  (let ((dir (read-directory-name "Mount at: " mount-default-mount)))
     (start-process "mount" "*mount*"
 		   "sudo" "mount" (button-label button) dir)
     (push (cons (button-label button) dir) mount-manual-mounts))
@@ -50,8 +60,8 @@
 
 (defun mount-insert-devices ()
   (interactive)
-  (mount-clear-section "Mounts: ")
-  (dolist (dev (directory-files "/dev" t "^sd[a-z][0-9]"))
+  (mount-clear-section "Mountable devices: ")
+  (dolist (dev (directory-files "/dev" t mount-devices-mask))
     (insert ?\^I)
     (insert-button dev
 		   'action 'mount-do-mount)

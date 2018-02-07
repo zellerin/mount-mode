@@ -4,6 +4,7 @@ Usage: =M-x mount=
 
 In new buffer, =<RET>= to mount & umount, =g= to refresh, =o= to open directory.
 
+=M-x customize-group mount= for minimal customization.
 * Known bugs & issues
 - Removing items from list of mounted things should be done on proces
   finished filter
